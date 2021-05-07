@@ -9,7 +9,7 @@ const ListItemDeleteAction = ({ onDelete }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onDelete}>
-        <Icon name="trash-can" color={colors.light} size={30} />
+        <Icon name="trash-can" color={colors.light.text} size={30} />
       </TouchableOpacity>
     </View>    
   );

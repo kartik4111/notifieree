@@ -10,7 +10,7 @@ const FileScreen = ({ route }) => {
   return (
     <Screen style={{ flex: 1, padding: 0 }}>
       {type === "image" && (
-        <ImageViewer imageUrls={[{ url: uri }]} renderIndicator={() => null} backgroundColor={colors.light} saveToLocalByLongPress={false} />
+        <ImageViewer imageUrls={[{ url: uri }]} renderIndicator={() => null} backgroundColor={colors.light.text} saveToLocalByLongPress={false} />
       )}
     </Screen>      
   );

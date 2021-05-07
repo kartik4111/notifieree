@@ -53,19 +53,19 @@ const DepartmentScreen = (props) => {
 
   const renderAllDepts = useCallback(({ item }) => {
     return (
-      <ListItem title={item.name} backgroundColor={item.iconColor} icon={item.icon} iconColor={colors.light} iconSize={30} onPress={() => sendRequest(item.id)} />
+      <ListItem title={item.name} backgroundColor={item.iconColor} icon={item.icon} iconColor={colors.light.text} iconSize={30} onPress={() => sendRequest(item.id)} />
     );
   }, []); 
   
   const renderDepts = useCallback(({ item }) => {
     return (
-      <ListItem title={item.name} backgroundColor={item.iconColor} icon={item.icon} iconColor={colors.light} iconSize={30} />
+      <ListItem title={item.name} backgroundColor={item.iconColor} icon={item.icon} iconColor={colors.dark.text} iconSize={30} />
     );
   }, []);
   
   const renderPendingDepts = useCallback(({ item }) => {
     return (
-      <ListItem title={item.name} backgroundColor={item.iconColor} icon={item.icon} iconColor={colors.light} iconSize={30} opacity={0.5} />
+      <ListItem title={item.name} backgroundColor={item.iconColor} icon={item.icon} iconColor={colors.dark.text} iconSize={30} opacity={0.5} />
     );
   }, []);
 
@@ -125,7 +125,7 @@ const DepartmentScreen = (props) => {
           /> 
         </>
       )}
-      <Icon name="plus" style={styles.add} color={colors.light} backgroundColor={colors.primary} size={30} onPress={() => setModal(true)} />
+      <Icon name="plus" style={styles.add} color={colors.dark.text} backgroundColor={colors.primary} size={30} onPress={() => setModal(true)} />
     </Screen>
   );    
 };

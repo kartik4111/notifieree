@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
 
   iconText: {
-    color: colors.dark,
+    color: colors.light.background,
     fontSize: 20,
     opacity: 0.7,
     textAlign: "center",

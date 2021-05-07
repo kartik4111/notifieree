@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { Image, FlatList, StyleSheet, View } from "react-native";
 
 import { firebase } from "../api/client";
 import notificationApi from "../api/notifications";
 import AppText from "../components/AppText";
+import Icon from "../components/Icon";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
 import Loader from "../components/Loader";
@@ -17,6 +18,17 @@ const NotificationScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Icon name='menu' color={colors.light.background} size={28} onPress={() => navigation.navigate('Account')} />,
+      headerRightContainerStyle: { marginRight: 15, marginTop: 5 },
+      headerTitle: () => <Image 
+        source={require("../assets/logo.png")} 
+        style={{
+          height: 50,
+          width: 150
+        }}
+      />,
+    });
     loadNotifications();
   }, []);
 
@@ -38,7 +50,7 @@ const NotificationScreen = ({ navigation }) => {
   }, []);
 
   const renderItem = useCallback(({item}) => (
-    <ListItem title={item.title} subtitle={item.body} icon={item.icon} backgroundColor={item.iconColor} iconColor={colors.light} onPress={() => navigation.navigate("NotificationDetail", item)} chevron />
+    <ListItem title={item.title} subtitle={item.body} icon={item.icon} backgroundColor={item.iconColor} iconColor={colors.light.background} onPress={() => navigation.navigate("NotificationDetail", item)} chevron />
   ), []);  
 
   if (loading) return <Loader /> 

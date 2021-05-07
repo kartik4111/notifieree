@@ -1,16 +1,19 @@
-import React from "react";
-import { FlatList } from "react-native";
+import React, { useContext, useState } from "react";
+import { FlatList, StyleSheet, Switch, View } from "react-native";
 import { firebase } from "../api/client";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
+import ColorSchemeContext from "../context/colorScheme";
 import useAuth from "../hooks/useAuth";
 import cache from "../utils/cache";
 
 const AccountScreen = ({ navigation }) => {
   const { user, setUser } = useAuth();
-  
+  const { colorScheme, setColorScheme } = useContext(ColorSchemeContext);
+  const [isEnabled, setIsEnabled] = useState(false);
+
   const menuItems = [
     {
       title: "Departments",
@@ -18,7 +21,7 @@ const AccountScreen = ({ navigation }) => {
         name: "domain",
         color: colors.medium,
       },
-      onPress: () => navigation.navigate("Departments"),
+      onPress: () => navigation.replace("Departments"),
       chevron: true,
     },
     {
@@ -39,13 +42,6 @@ const AccountScreen = ({ navigation }) => {
       title: "Privacy Policy",
       icon: {
         name: "lock-outline",
-        color: colors.medium,
-      },
-    },
-    {
-      title: "Settings",
-      icon: {
-        name: "settings-outline",
         color: colors.medium,
       },
     },
@@ -74,6 +70,22 @@ const AccountScreen = ({ navigation }) => {
         iconColor={colors.primary}
       />
       <ListItemSeparator />
+      <View>
+        <ListItem 
+          title='Dark Mode'
+          icon='brightness-3'
+        />
+        <Switch 
+          //trackColor={{}}
+          //thumbColor={{}}
+          style={styles.switch}
+          value={colorScheme === 'dark' ? true : false }
+          onValueChange={() => { 
+            setColorScheme(colorScheme === 'light' ? 'dark' : 'light');
+            cache.store("colorScheme", colorScheme === 'light' ? 'dark' : 'light');
+          }}
+        />
+      </View>
       <FlatList
         showsVerticalScrollIndicator ={false}
         data={menuItems}
@@ -91,5 +103,13 @@ const AccountScreen = ({ navigation }) => {
     </Screen>
   );
 };
+
+const styles = StyleSheet.create({
+  switch: {
+    right: 1,
+    top: 12,
+    position: 'absolute'
+  }
+});
 
 export default AccountScreen;

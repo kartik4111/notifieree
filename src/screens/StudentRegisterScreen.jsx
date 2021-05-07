@@ -125,6 +125,7 @@ const StudentRegisterScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    backgroundColor: "#f2f2f2",
     padding: 20,
   },
   keyboard: {

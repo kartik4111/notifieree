@@ -7,6 +7,7 @@ LogBox.ignoreLogs(["Setting a timer"]);
 
 import { firebase } from "./src/api/client";
 import AuthContext from "./src/auth/context";
+import ColorSchemeContext from "./src/context/colorScheme";
 import NavigationTheme from "./src/navigation/NavigationTheme";
 import AppNavigator from "./src/navigation/AppNavigator";
 import AuthNavigator from "./src/navigation/AuthNavigator";
@@ -24,10 +25,17 @@ Notifications.setNotificationHandler({
 export default function App() {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [colorScheme, setColorScheme] = useState('light');
 
   useEffect(() => {
+    restoreColorScheme();
     restoreUser();
   }, []);
+
+  const restoreColorScheme = async () => {
+    const colorScheme = await cache.get("colorScheme");
+    colorScheme && setColorScheme(colorScheme);
+  };
 
   const restoreUser = () => {
     firebase.auth().onAuthStateChanged(async (user) => {
@@ -87,9 +95,11 @@ export default function App() {
   
   return (
     <AuthContext.Provider value={{user, setUser}}>
-      <NavigationContainer theme={NavigationTheme}>
-        {user ? <AppNavigator /> : <AuthNavigator />}
-      </NavigationContainer>
+      <ColorSchemeContext.Provider value={{ colorScheme, setColorScheme }}>
+        <NavigationContainer theme={NavigationTheme}>
+          {user ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </ColorSchemeContext.Provider>
     </AuthContext.Provider>
   );
 }

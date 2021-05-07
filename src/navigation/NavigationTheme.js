@@ -5,7 +5,7 @@ export default {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    text: colors.light,
+    text: "#f2f2f2",
     card: colors.primary,
   },
 };

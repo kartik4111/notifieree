@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, TouchableHighlight } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import AppText from "./AppText";
 import Icon from "./Icon";
 import colors from "../config/colors";
+import ColorSchemeContext from "../context/colorScheme";
 
-const ListItem = ({ title, subtitle, backgroundColor, onPress = null, renderRightActions, icon, iconText, iconColor, iconSize  = 30, opacity = 1, chevron = false }) => {
+const ListItem = ({ title, subtitle, backgroundColor, onPress = null, renderRightActions, icon, iconText, iconColor, iconSize  = 28, opacity = 1, chevron = false }) => {
+  const { colorScheme } = useContext(ColorSchemeContext);
+  
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+      <TouchableHighlight underlayColor={colors[colorScheme].background} onPress={onPress}>
         <View style={[styles.container, {opacity}]}>
           <View style={styles.innerContainer}>
             {icon && <Icon name={icon} color={iconColor} size={iconSize} backgroundColor={backgroundColor} />}
             {iconText && <Icon text={iconText} color={iconColor} size={iconSize} backgroundColor={backgroundColor} />}
             <View style={styles.detailsContainer}>
-              {title && <AppText style={styles.title}>{title}</AppText>}
-              {subtitle && <AppText style={styles.subtitle} numberOfLines={1}>{subtitle}</AppText>}
+              {title && <AppText style={[styles.title, { color: colors[colorScheme].text }]}>{title}</AppText>}
+              {subtitle && <AppText style={[styles.subtitle, { color: colors[colorScheme].text }]} numberOfLines={1}>{subtitle}</AppText>}
             </View>
           </View>
           {chevron && <Icon name="chevron-right" size={iconSize} />}
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 12,
+    marginVertical: 10,
   },
   detailsContainer: {
     flex: 1,
@@ -44,14 +47,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   subtitle: {
-    color: colors.dark,
     opacity: 0.6,
-    fontSize: 18,
+    fontSize: 14,
   },
   title: {
-    fontSize: 24,
-    color: colors.dark,
-    opacity: 0.7,
+    fontSize: 22,
+    opacity: 0.8,
   }
 });
 
