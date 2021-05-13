@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, StatusBar, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as Yup from "yup";
 
@@ -77,6 +77,12 @@ const StudentLoginScreen = ({ navigation }) => {
               textContentType="password"
             />
             <SubmitButton title="Login" />
+            <AppText
+              style={[{ color: colors.primary }, styles.footerText]}
+              onPress={() => navigation.navigate("Forgot Password")}
+            >
+              Forgot Password
+            </AppText>
             <View style={styles.footer}>
               <AppText style={styles.footerText}>
                 Haven't registered yet?

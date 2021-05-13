@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "splash": {
       "image": "./src/assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#f8f4f4"
     },
     "updates": {
@@ -19,7 +19,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/app_logo.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#f8f4f4"
       }
     },
     "web": {
