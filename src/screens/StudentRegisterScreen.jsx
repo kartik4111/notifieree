@@ -15,10 +15,10 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(8).label("Password"),
   confirmPassword: Yup.string().required().min(8).label("Confirm Password"),
-  phoneNumber: Yup.string().matches(/^[6-9]\d{9}$/, {
-    message: "Please enter valid number.",
-    excludeEmptyString: false,
-  }),
+  // phoneNumber: Yup.string().matches(/^[6-9]\d{9}$/, {
+  //   message: "Please enter valid number.",
+  //   excludeEmptyString: false,
+  // }),
 });
 
 const StudentRegisterScreen = ({ navigation }) => {
@@ -82,12 +82,12 @@ const StudentRegisterScreen = ({ navigation }) => {
             name="motherName"
             placeholder="Mother Name"
           />
-          <AppFormField
+          {/* <AppFormField
             icon="phone"
             name="phoneNumber"
             placeholder="Mobile Number"
             textContentType="telephoneNumber"
-          />
+          /> */}
           <AppFormField
             autoCapitalize="none"
             autoCorrect={false}
