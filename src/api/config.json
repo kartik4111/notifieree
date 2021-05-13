@@ -1,0 +1,14 @@
+{
+  "baseURL": "https://hidden-refuge-30445.herokuapp.com/api",
+
+  "firebase": {
+    "apiKey": "AIzaSyB91wcJ06PAsQKhC30_BhW8nU3Mj-W0y1M",
+    "authDomain": "college-app-ed93f.firebaseapp.com",
+    "databaseURL": "https://college-app-ed93f.firebaseio.com",
+    "projectId": "college-app-ed93f",
+    "storageBucket": "college-app-ed93f.appspot.com",
+    "messagingSenderId": "748219502812",
+    "appId": "1:748219502812:web:40f0a021ec9a7134db2419",
+    "measurementId": "G-9TD7KSGJD7"
+  }
+}
