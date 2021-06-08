@@ -1,19 +1,19 @@
-import client, { firebase } from "./client";
+import client from "./client";
 
-const login = async (target, value) => {
+const login = async (value) => {
   try {
-    const { data, headers } = await client.post("/auth/" + target, value);
-    await firebase.auth().signInWithCustomToken(headers["x-auth-token"]);
-    
-    return { error: null, data };
+    const { data } = await client.post("/auth/student", value);
+    if (data) return { error: data };
+
+    return { error: null };
   } catch (error) {
-    if (error.response) return { error: "Invalid credentials", data: null };
+    if (error.response) return { error: "Invalid credentials" };
   }
 };
 
-const register = async (target, value) => {
+const register = async (value) => {
   try {
-    await client.post("/register/" + target, value);
+    await client.post("/register/student", value);
     
     return { error: null };
   } catch (error) {

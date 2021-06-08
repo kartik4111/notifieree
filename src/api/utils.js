@@ -1,4 +1,4 @@
-import { firebase } from "./client";
+import client, { firebase } from "./client";
 
 import cache from "../utils/cache";
 
@@ -49,4 +49,15 @@ const sendRequest = async (userId, data) => {
   }
 };
 
-export default { deleteRequest, getRequest, sendRequest };
+const validateOTP = async (value) => {
+  try {
+    const { data, headers } = await client.post('/utils/validateOTP', value);    
+    await firebase.auth().signInWithCustomToken(headers['x-auth-token']);
+
+    return { error: null, data };
+  } catch (error) {
+    if (error.response) return { error: 'Invalid OTP', data: null };
+  }
+};
+
+export default { deleteRequest, getRequest, sendRequest, validateOTP };

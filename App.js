@@ -45,7 +45,7 @@ export default function App() {
         if (!expoPushToken) uploadExpoToken(user.uid);
         firebase
           .firestore()
-          .collection("users")
+          .collection("students")
           .doc(user.uid)
           .get()
           .then((doc) => {
@@ -92,7 +92,7 @@ export default function App() {
     registerForPushNotificationsAsync().then((token) => {
       firebase
         .firestore()
-        .collection("users")
+        .collection("students")
         .doc(uid)
         .update({ expoPushToken: token });
       cache.store("ExpoPushToken", token);

@@ -4,7 +4,7 @@ import {
   createStackNavigator,
 } from "@react-navigation/stack";
 
-import StudentRegisterScreen from "../screens/StudentRegisterScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 import LoginScreen from "../screens/LoginScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import OTPScreen from "../screens/OTPScreen";
@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
   <Stack.Navigator
-    initialRouteName={"Login"}
+    initialRouteName="Login"
     screenOptions={{
       cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       headerStyle: { elevation: 0 },
@@ -29,11 +29,10 @@ const AuthNavigator = () => (
     <Stack.Screen
       name="OTP"
       component={OTPScreen}
-      options={{ headerShown: false }}
     />
     <Stack.Screen
-      name="Student Registartion"
-      component={StudentRegisterScreen}
+      name="Register"
+      component={RegisterScreen}
     />
   </Stack.Navigator>
 );

@@ -53,12 +53,13 @@ const AccountScreen = ({ navigation }) => {
       },
       onPress: async () => {
         cache.clear();
-        await firebase
+        firebase
           .firestore()
-          .collection("users")
+          .collection("students")
           .doc(user.id)
           .update({ expoPushToken: "" });
         firebase.auth().signOut();
+        setColorScheme("light");
         setUser();
       },
     },

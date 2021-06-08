@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
   // }),
 });
 
-const StudentRegisterScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation }) => {
   const [error, setError] = useState();
   const [submitting, setSubmitting] = useState(false);
 
@@ -35,7 +35,7 @@ const StudentRegisterScreen = ({ navigation }) => {
       data.email = data.email.toLowerCase();
       delete data.confirmPassword;
 
-      const { error } = await authApi.register("student", data);
+      const { error } = await authApi.register(data);
       if (error) {
         setSubmitting(false);
         return setError("Invalid Details");
@@ -133,4 +133,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StudentRegisterScreen;
+export default RegisterScreen;

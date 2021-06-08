@@ -43,17 +43,15 @@ const NotificationScreen = ({ navigation }) => {
 
   const keyExtractor = useCallback((item) => item.nid, []);
 
-  const loadNotifications = useCallback(async () => {
-    setLoading(true);
-
+  const loadNotifications = async () => {
     firebase
-      .firestore()
-      .collection("users")
-      .doc(user.id)
-      .get()
-      .then((doc) => setUser({ id: doc.id, ...doc.data() }))
-      .catch((error) => console.error(error));
-
+    .firestore()
+    .collection("students")
+    .doc(user.id)
+    .get()
+    .then((doc) => setUser({ id: doc.id, ...doc.data() }))
+    .catch((error) => console.error(error));
+    
     if (user.depts && user.depts.length) {
       const notifications = await notificationApi.get(
         user.collegeId,
@@ -63,7 +61,7 @@ const NotificationScreen = ({ navigation }) => {
     }
 
     setLoading(false);
-  }, []);
+  };
 
   const renderItem = useCallback(
     ({ item }) => (
