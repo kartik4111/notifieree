@@ -25,10 +25,8 @@ const DepartmentScreen = (props) => {
   }, [modal]);
 
   const loadData = async () => {
-    setLoading(true);
-
     const allDepts = await deptApi.getAll(user.collegeId);
-    firebase.firestore().collection("users").doc(user.id).get()
+    firebase.firestore().collection("students").doc(user.id).get()
       .then(doc => setUser({ id: doc.id, ...doc.data() }))
       .catch(error => console.log(error));
 
@@ -53,7 +51,7 @@ const DepartmentScreen = (props) => {
 
   const renderAllDepts = useCallback(({ item }) => {
     return (
-      <ListItem title={item.name} backgroundColor={item.iconColor} icon={item.icon} iconColor={colors.light.text} iconSize={30} onPress={() => sendRequest(item.id)} />
+      <ListItem title={item.name} backgroundColor={item.iconColor} icon={item.icon} iconColor={colors.dark.text} iconSize={30} onPress={() => sendRequest(item.id)} />
     );
   }, []); 
   

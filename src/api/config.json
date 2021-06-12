@@ -1,5 +1,6 @@
 {
   "baseURL": "https://hidden-refuge-30445.herokuapp.com/api",
+  "URL": "http://192.168.29.132:5000/api",
 
   "firebase": {
     "apiKey": "AIzaSyB91wcJ06PAsQKhC30_BhW8nU3Mj-W0y1M",

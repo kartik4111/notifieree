@@ -12,7 +12,7 @@ const AppButton = ({
 }) => {
   return (
     <TouchableOpacity
-      style={[styles.button, style, { backgroundColor }]}
+      style={[styles.button, style, { backgroundColor, opacity: disabled ? 0.5 : undefined }]}
       onPress={onPress}
       disabled={disabled}
     >

@@ -11,6 +11,7 @@ const Stack = createStackNavigator();
 
 const AppNavigator = () => (
   <Stack.Navigator
+    initialRouteName="Notifications"
     screenOptions={{
       cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       headerStyle: { elevation: 0 },

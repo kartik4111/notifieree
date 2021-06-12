@@ -18,7 +18,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const StudentLoginScreen = ({ navigation }) => {
-  const { setUser } = useAuth();
   const [error, setError] = useState();
   const [submitting, setSubmitting] = useState(false);
 
@@ -26,78 +25,75 @@ const StudentLoginScreen = ({ navigation }) => {
     setSubmitting(true);
 
     value.email = value.email.toLowerCase();
+    const { error } = await authApi.login(value);
+    
+    setSubmitting(false);
+    if (error) return setError(error);
 
-    const { error, data } = await authApi.login("student", value);
-    if (error) {
-      setSubmitting(false);
-      return setError(error);
-    }
-    setUser(data);
+    navigation.navigate('OTP', { data: value });
   };
 
   if (submitting) return <Loader />;
 
   return (
-    <>
-      <KeyboardAwareScrollView
-        style={styles.keyboard}
-        keyboardShouldPersistTaps="always"
-      >
-        <Screen style={styles.container}>
-          <Image
-            style={styles.logo}
-            source={require("../assets/app_logo_transparent.png")}
+    <KeyboardAwareScrollView
+      style={styles.keyboard}
+      keyboardShouldPersistTaps="always"
+    >
+      <Screen style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={require("../assets/app_logo_transparent.png")}
+        />
+        <Image
+          style={styles.logoText}
+          source={require("../assets/logo_purple.png")}
+        />
+        {error && <Error error={error} />}
+        <AppForm
+          initialValues={{ email: "", password: "" }}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          <AppFormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon="email"
+            keyboardType="email-address"
+            name="email"
+            placeholder="Email"
+            textContentType="emailAddress"
           />
-          <Image
-            style={styles.logoText}
-            source={require("../assets/logo_purple.png")}
+          <AppFormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon="lock"
+            name="password"
+            placeholder="Password"
+            secureTextEntry
+            textContentType="password"
           />
-          {error && <Error error={error} />}
-          <AppForm
-            initialValues={{ email: "", password: "" }}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
+          <SubmitButton title="Login" />
+          <AppText
+            style={[{ color: colors.primary }, styles.footerText]}
+            onPress={() => navigation.navigate("Forgot Password")}
           >
-            <AppFormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="email"
-              keyboardType="email-address"
-              name="email"
-              placeholder="Email"
-              textContentType="emailAddress"
-            />
-            <AppFormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="lock"
-              name="password"
-              placeholder="Password"
-              secureTextEntry
-              textContentType="password"
-            />
-            <SubmitButton title="Login" />
-            <AppText
-              style={[{ color: colors.primary }, styles.footerText]}
-              onPress={() => navigation.navigate("Forgot Password")}
-            >
-              Forgot Password
+            Forgot Password
+          </AppText>
+          <View style={styles.footer}>
+            <AppText style={styles.footerText}>
+              Haven't registered yet?
             </AppText>
-            <View style={styles.footer}>
-              <AppText style={styles.footerText}>
-                Haven't registered yet?
-              </AppText>
-              <AppText
-                style={styles.register}
-                onPress={() => navigation.navigate("Student Registartion")}
-              >
-                Register
-              </AppText>
-            </View>
-          </AppForm>
-        </Screen>
-      </KeyboardAwareScrollView>
-    </>
+            <AppText
+              style={styles.register}
+              onPress={() => navigation.navigate("Register")}
+            >
+              Register
+            </AppText>
+          </View>
+        </AppForm>
+      </Screen>
+    </KeyboardAwareScrollView>
   );
 };
 
