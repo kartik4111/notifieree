@@ -8,7 +8,6 @@ import AppText from "../components/AppText";
 import Error from "../components/Error";
 import { AppForm, AppFormField, SubmitButton } from "../components/Forms";
 import Screen from "../components/Screen";
-import useAuth from "../hooks/useAuth";
 import colors from "../config/colors";
 import Loader from "../components/Loader";
 
@@ -26,11 +25,11 @@ const StudentLoginScreen = ({ navigation }) => {
 
     value.email = value.email.toLowerCase();
     const { error } = await authApi.login(value);
-    
+
     setSubmitting(false);
     if (error) return setError(error);
 
-    navigation.navigate('OTP', { data: value });
+    navigation.navigate("OTP", { data: value });
   };
 
   if (submitting) return <Loader />;
@@ -81,9 +80,7 @@ const StudentLoginScreen = ({ navigation }) => {
             Forgot Password
           </AppText>
           <View style={styles.footer}>
-            <AppText style={styles.footerText}>
-              Haven't registered yet?
-            </AppText>
+            <AppText style={styles.footerText}>Haven't registered yet?</AppText>
             <AppText
               style={styles.register}
               onPress={() => navigation.navigate("Register")}
