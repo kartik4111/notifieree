@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import * as Yup from "yup";
+
+import utils from "../api/utils";
 import AppText from "../components/AppText";
+import Error from "../components/Error";
 import { AppForm, AppFormField, SubmitButton } from "../components/Forms";
+import Loader from "../components/Loader";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 
@@ -11,15 +15,38 @@ const validationSchema = Yup.object().shape({
   confirmPassword: Yup.string().required().min(8).label("Confirm Password"),
 });
 
-function ResetPasswordScreen(props) {
+const ResetPasswordScreen = ({ navigation, route }) => {
+  const data = route.params.data;
+  const [error, setError] = useState();
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (value) => {
+    setSubmitting(true);
+
+    value = {
+      ...data,
+      ...value
+    };
+    
+    setSubmitting(false);
+
+    if (value.password !== value.confirmPassword) return setError("Password not match");
+
+    const result = await utils.resetPassword(value);
+    return result ? navigation.popToTop() : setError("Something went wrong");
+  };
+
+  if (submitting) return <Loader />;
+  
   return (
     <Screen style={styles.container}>
+      {error && <Error error={error} />}
       <AppForm
         initialValues={{
           password: "",
           confirmPassword: "",
         }}
-        // onSubmit={{}}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <AppFormField

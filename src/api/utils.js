@@ -8,8 +8,16 @@ const deleteRequest = async (userId, target, id) => {
   try {
     return { error: null };
   } catch (error) {
-    console.error("Error in deleting request");
     return { error: "Error in deleting request" };
+  }
+};
+
+const forgetPassword = async (email) => {
+  try {
+    await client.post('/utils/forgetPassword', { email });
+    return true;
+  } catch (error) {
+    return false; 
   }
 };
 
@@ -23,6 +31,15 @@ const getRequest = async (userId) => {
     return data;
   } catch (error) {
     console.error("Error in getting request");
+  }
+};
+
+const resetPassword = async (value) => {
+  try {
+    await client.post('/utils/resetPassword', value);
+    return true;
+  } catch (error) {
+    return false; 
   }
 };
 
@@ -52,7 +69,7 @@ const sendRequest = async (userId, data) => {
 const validateOTP = async (value) => {
   try {
     const { data, headers } = await client.post('/utils/validateOTP', value);    
-    await firebase.auth().signInWithCustomToken(headers['x-auth-token']);
+    if (value.password) await firebase.auth().signInWithCustomToken(headers['x-auth-token']);
 
     return { error: null, data };
   } catch (error) {
@@ -60,4 +77,4 @@ const validateOTP = async (value) => {
   }
 };
 
-export default { deleteRequest, getRequest, sendRequest, validateOTP };
+export default { deleteRequest, forgetPassword, getRequest, resetPassword, sendRequest, validateOTP };
