@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import authApi from "../api/auth";
 import AppText from "../components/AppText";
-import utils from "../api/utils";
+import utilsApi from "../api/utils";
 import Error from "../components/Error";
 import { AppForm, AppFormField, SubmitButton } from "../components/Forms";
 import Loader from "../components/Loader";
@@ -18,7 +18,7 @@ const validationSchema = Yup.object().shape({
   otp: Yup.string().min(6).max(6).required().label("OTP")
 });
 
-const OTPScreen = ({ route }) => {
+const OTPScreen = ({ navigation, route }) => {
   const data = route.params.data;
 
   const { setUser } = useAuth();
@@ -40,18 +40,29 @@ const OTPScreen = ({ route }) => {
       ...data,
       otp
     };
-    const { error, data: userData } = await utils.validateOTP(value);
+    const { error, data: userData } = await utilsApi.validateOTP(value);
+    
+    setSubmitting(false);
     
     if (error) {
-      setSubmitting(false);
       return setError("Invalid OTP");
     }
 
-    setUser(userData);
+    return userData ? setUser(userData) : navigation.navigate("Reset Password", { data: value });
   };
 
   const resendCode = async () => {
-    const { error } = await authApi.login(data);
+    let authRes;
+    let error;
+
+    setError(false);
+
+    if (data.password)
+      authRes = await authApi.login(data);
+    else
+      error = await utilsApi.forgetPassword(data.email);
+
+    if (authRes) error = authRes.error;
     if (error) return setError(error);
 
     setTimer(120);
