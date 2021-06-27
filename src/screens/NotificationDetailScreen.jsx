@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
+import * as WebBrowser from "expo-web-browser";
+
 import AppText from '../components/AppText';
 import Icon from '../components/Icon';
 import ListItemSeparator from '../components/ListItemSeparator';
-
 import Screen from "../components/Screen";
 
 const NotificationDetailScreen = ({ navigation, route }) => {
@@ -19,10 +20,19 @@ const NotificationDetailScreen = ({ navigation, route }) => {
     }
   }, []);
 
+  const handleIcon = () => {
+    if (iconName === "image") return navigation.navigate("Image", { uri: docURL });
+    else if (iconName === "pdf-box") handlePdf(docURL);
+  };
+
+  const handlePdf = (uri) => {
+    WebBrowser.openBrowserAsync(uri);
+  }
+
   return (
     <Screen>
       <AppText style={styles.title}>{title}</AppText>
-      {iconName && <Icon name={iconName} color={"#ff5864"} size={30} style={styles.icon} onPress={() => navigation.navigate("File", { type: iconName, uri: docURL })} />}
+      {iconName && <Icon name={iconName} color={"#ff5864"} size={30} style={styles.icon} onPress={handleIcon} />}
       <ListItemSeparator />
       <ScrollView>
         <AppText style={styles.body}>{body}</AppText>

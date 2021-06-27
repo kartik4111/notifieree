@@ -12,7 +12,7 @@ const Screen = ({ children, style }) => {
     ? (backgroundColor = colors[colorSchemeValues.colorScheme].background)
     : (backgroundColor = colors.light.background);
 
-  return (
+    return (
     <SafeAreaView style={[styles.screen, { backgroundColor }, style]}>
       {children}
       <StatusBar style="light" backgroundColor={colors.primary} />
