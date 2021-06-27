@@ -42,7 +42,7 @@ const StudentLoginScreen = ({ navigation }) => {
       <Screen style={styles.container}>
         <Image
           style={styles.logo}
-          source={require("../assets/app_logo_transparent.png")}
+          source={require("../assets/app_logo.png")}
         />
         <Image
           style={styles.logoText}

@@ -3,7 +3,7 @@ import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/
 
 import AccountScreen from "../screens/AccountScreen";
 import DepartmentScreen from "../screens/DepartmentScreen";
-import FileScreen from "../screens/FileScreen";
+import InageScreen from "../screens/ImageScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import NotificationDetailScreen from "../screens/NotificationDetailScreen";
 
@@ -20,7 +20,7 @@ const AppNavigator = () => (
   >
     <Stack.Screen name="Notifications" component={NotificationScreen} />
     <Stack.Screen name="NotificationDetail" component={NotificationDetailScreen} />
-    <Stack.Screen name="File" component={FileScreen} />
+    <Stack.Screen name="Image" component={InageScreen} />
     <Stack.Screen name="Account" component={AccountScreen} />
     <Stack.Screen name="Departments" component={DepartmentScreen} />
   </Stack.Navigator>
